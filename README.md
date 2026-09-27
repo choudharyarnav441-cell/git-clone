@@ -7,6 +7,7 @@ Product landing page for the clayo Warmth Belt (cordless period heat + massage b
   - `preview/index.html` — standalone preview with sample data
   - `shopify/sections/clayo-landing.liquid` — Shopify OS 2.0 section bound to a product
 - `shopify/templates/product.clayo.json` — product template using the section
+- `design-md/` — 74 DESIGN.md design systems from [awesome-design-md](https://github.com/VoltAgent/awesome-design-md) for AI agents to style pages from; see [`design-md/README.md`](design-md/README.md) for the index and usage
 
 ## Install on Shopify
 1. Copy `shopify/sections/clayo-landing.liquid` into your theme's `sections/`, `shopify/templates/product.clayo.json` into `templates/`, and `shopify/assets/clayo-hero.webp` into `assets/`.
