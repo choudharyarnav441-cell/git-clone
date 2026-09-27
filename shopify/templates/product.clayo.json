@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "clayo-landing",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

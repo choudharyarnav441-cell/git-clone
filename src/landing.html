@@ -1,0 +1,507 @@
+<!--
+  clayo landing page — single source template.
+  Double-underscore tokens are filled by build.mjs:
+    - preview/index.html            → sample values for local viewing
+    - shopify/sections/clayo-landing.liquid → Liquid product data
+-->
+<div class="clayo" id="clayo">
+<style>
+  .clayo {
+    --cream: #f5efe6;
+    --paper: #fbf8f3;
+    --white: #ffffff;
+    --clay: #b85a3a;
+    --clay-deep: #8e3f25;
+    --blush: #f1d9cc;
+    --ink: #24190f;
+    --ink-soft: #5b4c40;
+    --line: #e4d9cb;
+    --sage: #7d8b6a;
+    --radius: 22px;
+    --serif: "Fraunces", "Iowan Old Style", Georgia, serif;
+    --sans: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--paper);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    overflow-x: clip;
+  }
+  .clayo *, .clayo *::before, .clayo *::after { box-sizing: border-box; }
+  .clayo img { max-width: 100%; display: block; }
+  .clayo a { color: inherit; }
+  .clayo h1, .clayo h2, .clayo h3 { font-family: var(--serif); font-weight: 400; letter-spacing: -0.02em; margin: 0; line-height: 1.05; }
+  .clayo p { margin: 0; }
+  .c-wrap { width: min(1200px, 100% - 32px); margin-inline: auto; }
+  .c-eyebrow { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--clay); font-weight: 600; }
+
+  /* Announcement + nav */
+  .c-announce { background: var(--ink); color: var(--cream); font-size: 13px; text-align: center; padding: 9px 16px; letter-spacing: .02em; }
+  .c-announce b { color: #f3b89f; font-weight: 600; }
+  .c-nav { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+  .c-nav .c-wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .c-logo { font-family: var(--serif); font-size: 30px; letter-spacing: -0.04em; text-decoration: none; }
+  .c-logo span { color: var(--clay); }
+  .c-links { display: flex; gap: 28px; font-size: 14px; }
+  .c-links a { text-decoration: none; color: var(--ink-soft); }
+  .c-links a:hover { color: var(--ink); }
+  .c-cart { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; text-decoration: none; border: 1px solid var(--line); padding: 8px 14px; border-radius: 999px; background: var(--white); }
+
+  /* Buttons */
+  .c-btn { appearance: none; border: 0; cursor: pointer; font: 600 16px/1 var(--sans); display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 18px 28px; border-radius: 999px; background: var(--clay); color: var(--white); text-decoration: none; transition: background .2s, transform .2s; }
+  .c-btn:hover { background: var(--clay-deep); transform: translateY(-1px); }
+  .c-btn--ghost { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
+  .c-btn--ghost:hover { background: var(--ink); color: var(--cream); }
+
+  /* Hero */
+  .c-hero { padding: 56px 0 80px; }
+  .c-hero .c-wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; }
+  .c-hero h1 { font-size: clamp(44px, 6.4vw, 84px); margin: 18px 0 22px; }
+  .c-hero h1 em { font-style: italic; color: var(--clay); }
+  .c-hero-sub { font-size: 19px; color: var(--ink-soft); max-width: 30ch; }
+  .c-rating { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--ink-soft); }
+  .c-stars { color: var(--clay); letter-spacing: 2px; }
+  .c-buy { margin-top: 34px; display: flex; flex-wrap: wrap; align-items: center; gap: 18px; }
+  .c-price { display: flex; align-items: baseline; gap: 10px; }
+  .c-price strong { font-family: var(--serif); font-size: 34px; font-weight: 500; }
+  .c-price s { color: var(--ink-soft); font-size: 17px; }
+  .c-save { background: var(--blush); color: var(--clay-deep); font-size: 12px; font-weight: 600; padding: 5px 10px; border-radius: 999px; }
+  .c-assure { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 14px; color: var(--ink-soft); list-style: none; padding: 0; }
+  .c-assure li::before { content: "✓"; color: var(--sage); font-weight: 700; margin-right: 8px; }
+  .c-visual { position: relative; }
+  .c-visual-frame { background: var(--white); border-radius: 32px; overflow: hidden; aspect-ratio: 1; box-shadow: 0 40px 80px -40px rgba(92, 45, 20, .35); }
+  .c-visual-frame img { width: 100%; height: 100%; object-fit: cover; }
+  .c-chip { position: absolute; background: var(--white); border: 1px solid var(--line); border-radius: 16px; padding: 12px 16px; box-shadow: 0 16px 40px -20px rgba(36, 25, 15, .4); font-size: 13px; animation: c-float 6s ease-in-out infinite; }
+  .c-chip b { display: block; font-family: var(--serif); font-size: 24px; font-weight: 500; line-height: 1.1; }
+  .c-chip--temp { left: -28px; bottom: 18%; }
+  .c-chip--time { right: -20px; top: 10%; animation-delay: -3s; }
+  .c-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #e0523a; margin-right: 6px; box-shadow: 0 0 0 0 rgba(224, 82, 58, .6); animation: c-pulse 2s infinite; }
+  @keyframes c-float { 50% { transform: translateY(-8px); } }
+  @keyframes c-pulse { 70% { box-shadow: 0 0 0 10px rgba(224, 82, 58, 0); } 100% { box-shadow: 0 0 0 0 rgba(224, 82, 58, 0); } }
+
+  /* Marquee strip */
+  .c-strip { background: var(--clay); color: var(--cream); overflow: hidden; padding: 16px 0; }
+  .c-strip-track { display: flex; gap: 48px; width: max-content; animation: c-marquee 38s linear infinite; font-family: var(--serif); font-size: 22px; font-style: italic; white-space: nowrap; }
+  .c-strip-track span::after { content: "✺"; margin-left: 48px; font-style: normal; opacity: .6; }
+  @keyframes c-marquee { to { transform: translateX(-50%); } }
+
+  /* Sections */
+  .c-section { padding: 110px 0; }
+  .c-head { max-width: 720px; margin-bottom: 56px; }
+  .c-head h2 { font-size: clamp(36px, 4.6vw, 60px); margin-top: 14px; }
+  .c-head p { margin-top: 18px; font-size: 18px; color: var(--ink-soft); }
+
+  /* Heat dial */
+  .c-dial { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .c-dial-stage { position: relative; border-radius: var(--radius); background: var(--ink); color: var(--cream); aspect-ratio: 1 / .9; display: grid; place-items: center; overflow: hidden; }
+  .c-rings { position: absolute; inset: 0; display: grid; place-items: center; }
+  .c-rings i { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(232, 92, 60, var(--a)) 0%, rgba(232, 92, 60, 0) 70%); transition: transform .6s ease, opacity .6s ease; }
+  .c-rings i:nth-child(1) { width: 30%; aspect-ratio: 1; --a: .9; }
+  .c-rings i:nth-child(2) { width: 55%; aspect-ratio: 1; --a: .5; }
+  .c-rings i:nth-child(3) { width: 85%; aspect-ratio: 1; --a: .28; }
+  .c-dial-read { position: relative; text-align: center; }
+  .c-dial-read b { font-family: var(--serif); font-weight: 400; font-size: clamp(72px, 10vw, 128px); line-height: 1; display: block; }
+  .c-dial-read small { font-size: 13px; letter-spacing: .16em; text-transform: uppercase; opacity: .7; }
+  .c-dial-panel { border-radius: var(--radius); background: var(--cream); padding: 40px; display: flex; flex-direction: column; justify-content: space-between; gap: 32px; }
+  .c-levels { display: grid; gap: 10px; }
+  .c-level { all: unset; cursor: pointer; display: grid; grid-template-columns: 44px 1fr auto; align-items: center; gap: 16px; padding: 16px 18px; border-radius: 16px; border: 1px solid var(--line); background: var(--paper); transition: border-color .2s, background .2s; }
+  .c-level:hover { border-color: var(--clay); }
+  .c-level:focus-visible { outline: 2px solid var(--clay); outline-offset: 2px; }
+  .c-level[aria-pressed="true"] { background: var(--white); border-color: var(--clay); box-shadow: 0 10px 30px -18px rgba(142, 63, 37, .6); }
+  .c-level-n { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--blush); color: var(--clay-deep); font-weight: 700; }
+  .c-level[aria-pressed="true"] .c-level-n { background: var(--clay); color: var(--white); }
+  .c-level-t strong { display: block; font-size: 16px; }
+  .c-level-t span { font-size: 14px; color: var(--ink-soft); }
+  .c-level-temp { font-family: var(--serif); font-size: 22px; }
+
+  /* Features */
+  .c-features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .c-feature { background: var(--paper); padding: 34px 28px 38px; }
+  .c-feature svg { width: 30px; height: 30px; stroke: var(--clay); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .c-feature h3 { font-size: 24px; margin: 26px 0 10px; }
+  .c-feature p { font-size: 15px; color: var(--ink-soft); }
+
+  /* Steps */
+  .c-steps-sec { background: var(--cream); }
+  .c-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; counter-reset: step; list-style: none; padding: 0; margin: 0; }
+  .c-step { counter-increment: step; border-top: 1px solid var(--ink); padding-top: 22px; }
+  .c-step::before { content: "0" counter(step); font-family: var(--serif); font-size: 15px; color: var(--clay); }
+  .c-step h3 { font-size: 30px; margin: 12px 0 10px; }
+  .c-step p { color: var(--ink-soft); }
+
+  /* Comparison */
+  .c-compare { width: 100%; border-collapse: collapse; font-size: 15px; }
+  .c-compare th, .c-compare td { padding: 18px 16px; text-align: center; border-bottom: 1px solid var(--line); }
+  .c-compare th:first-child, .c-compare td:first-child { text-align: left; color: var(--ink-soft); }
+  .c-compare thead th { font-family: var(--serif); font-weight: 400; font-size: 20px; }
+  .c-compare .is-us { background: var(--ink); color: var(--cream); }
+  .c-compare thead .is-us { border-radius: 16px 16px 0 0; }
+  .c-compare tbody tr:last-child .is-us { border-radius: 0 0 16px 16px; }
+  .c-yes { color: #f3b89f; font-weight: 700; }
+  .c-no { color: #b8aa9c; }
+  .c-table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  /* Reviews */
+  .c-reviews { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .c-review { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px; display: flex; flex-direction: column; gap: 18px; }
+  .c-review blockquote { margin: 0; font-family: var(--serif); font-size: 21px; line-height: 1.35; }
+  .c-review footer { margin-top: auto; font-size: 14px; color: var(--ink-soft); display: flex; justify-content: space-between; }
+  .c-verified { color: var(--sage); font-weight: 600; }
+
+  /* FAQ */
+  .c-faq-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 64px; }
+  .c-faq details { border-bottom: 1px solid var(--line); }
+  .c-faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 24px; padding: 24px 0; font-size: 18px; font-weight: 500; }
+  .c-faq summary::-webkit-details-marker { display: none; }
+  .c-faq summary::after { content: "+"; font-family: var(--serif); font-size: 28px; line-height: .8; color: var(--clay); transition: transform .25s; }
+  .c-faq details[open] summary::after { transform: rotate(45deg); }
+  .c-faq details p { padding: 0 0 24px; color: var(--ink-soft); max-width: 60ch; }
+
+  /* Final CTA */
+  .c-final { background: var(--ink); color: var(--cream); border-radius: 36px; padding: 88px 40px; text-align: center; position: relative; overflow: hidden; }
+  .c-final::before { content: ""; position: absolute; width: 640px; aspect-ratio: 1; left: 50%; top: 100%; transform: translate(-50%, -45%); background: radial-gradient(circle, rgba(232, 92, 60, .55), rgba(232, 92, 60, 0) 65%); pointer-events: none; }
+  .c-final > * { position: relative; }
+  .c-final h2 { font-size: clamp(40px, 6vw, 76px); }
+  .c-final h2 em { color: #f3b89f; }
+  .c-final p { margin: 20px auto 34px; color: #cdbfb2; max-width: 44ch; font-size: 18px; }
+
+  /* Footer */
+  .c-footer { padding: 64px 0 120px; font-size: 14px; color: var(--ink-soft); }
+  .c-footer .c-wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; align-items: end; }
+  .c-footer nav { display: flex; gap: 22px; flex-wrap: wrap; }
+  .c-footer a { text-decoration: none; }
+  .c-footer .c-logo { font-size: 56px; color: var(--ink); line-height: 1; }
+
+  /* Sticky mobile bar */
+  .c-sticky { position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 30; display: none; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 10px 10px 20px; border-radius: 999px; background: var(--ink); color: var(--cream); box-shadow: 0 20px 40px -12px rgba(0, 0, 0, .4); transform: translateY(140%); transition: transform .35s ease; }
+  .c-sticky.is-on { transform: none; }
+  .c-sticky b { font-family: var(--serif); font-size: 20px; font-weight: 500; }
+  .c-sticky .c-btn { padding: 14px 20px; font-size: 15px; }
+
+  /* Reveal */
+  .c-reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s ease; }
+  .c-reveal.is-in { opacity: 1; transform: none; }
+
+  @media (max-width: 960px) {
+    .c-hero .c-wrap, .c-dial, .c-faq-grid { grid-template-columns: 1fr; }
+    .c-hero { padding-top: 32px; }
+    .c-visual { order: -1; }
+    .c-chip--temp { left: 12px; bottom: 12px; }
+    .c-chip--time { right: 12px; top: 12px; }
+    .c-features { grid-template-columns: 1fr 1fr; }
+    .c-steps, .c-reviews { grid-template-columns: 1fr; }
+    .c-links { display: none; }
+    .c-section { padding: 80px 0; }
+    .c-faq-grid { gap: 8px; }
+    .c-sticky { display: flex; }
+  }
+  @media (max-width: 560px) {
+    .c-features { grid-template-columns: 1fr; }
+    .c-dial-panel { padding: 24px; }
+    .c-final { padding: 64px 22px; border-radius: 24px; }
+    .c-btn { width: 100%; }
+    .c-sticky .c-btn { width: auto; }
+    .c-compare { font-size: 14px; min-width: 520px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .clayo *, .clayo *::before, .clayo *::after { animation: none !important; transition: none !important; }
+    .c-reveal { opacity: 1; transform: none; }
+  }
+</style>
+
+<div class="c-announce">Free shipping over __FREE_SHIP__ &nbsp;·&nbsp; <b>60-night comfort trial</b> &nbsp;·&nbsp; 1-year warranty</div>
+
+<header class="c-nav">
+  <div class="c-wrap">
+    <a class="c-logo" href="/">clayo<span>.</span></a>
+    <nav class="c-links" aria-label="Page">
+      <a href="#how">How it works</a>
+      <a href="#compare">Compare</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="c-cart" href="/cart">Cart <span aria-hidden="true">→</span></a>
+  </div>
+</header>
+
+<section class="c-hero">
+  <div class="c-wrap">
+    <div>
+      <p class="c-eyebrow">The clayo Warmth Belt</p>
+      <h1>Period cramps, <em>met with warmth.</em></h1>
+      <p class="c-hero-sub">A cordless heat and massage belt that warms up in seconds and stays under your clothes — at your desk, on your commute, in bed.</p>
+      <div class="c-buy">
+        <div class="c-price">
+          <strong>__PRICE__</strong>
+          __COMPARE_BLOCK__
+        </div>
+        <form method="post" action="/cart/add" class="c-form">
+          <input type="hidden" name="id" value="__VARIANT_ID__">
+          <input type="hidden" name="quantity" value="1">
+          <button class="c-btn" type="submit" name="add">Add to cart <span aria-hidden="true">→</span></button>
+        </form>
+      </div>
+      <div class="c-rating" style="margin-top:22px">
+        <span class="c-stars" aria-hidden="true">★★★★★</span>
+        <span>__RATING_TEXT__</span>
+      </div>
+      <ul class="c-assure">
+        <li>Ships in 24h</li>
+        <li>Free returns</li>
+        <li>USB-C rechargeable</li>
+      </ul>
+    </div>
+    <div class="c-visual">
+      <div class="c-visual-frame">
+        <img src="__HERO_IMG__" alt="clayo Warmth Belt worn on the lower abdomen with heat radiating outward" width="1200" height="1200" fetchpriority="high">
+      </div>
+      <div class="c-chip c-chip--temp"><span class="c-dot"></span>Heating<b>55°C</b></div>
+      <div class="c-chip c-chip--time">Warm in<b>~10 sec</b></div>
+    </div>
+  </div>
+</section>
+
+<div class="c-strip" aria-hidden="true">
+  <div class="c-strip-track">
+    <span>Cordless comfort</span><span>Warm in seconds</span><span>Wear it anywhere</span><span>Heat + gentle massage</span><span>Soft, adjustable strap</span>
+    <span>Cordless comfort</span><span>Warm in seconds</span><span>Wear it anywhere</span><span>Heat + gentle massage</span><span>Soft, adjustable strap</span>
+  </div>
+</div>
+
+<section class="c-section" id="how">
+  <div class="c-wrap">
+    <div class="c-head c-reveal">
+      <p class="c-eyebrow">Your warmth, your way</p>
+      <h2>Three heat levels. Tap to feel the difference.</h2>
+      <p>Pick a level on the belt's display and it holds that temperature, with an auto-off timer so you can drift off without worrying.</p>
+    </div>
+    <div class="c-dial c-reveal">
+      <div class="c-dial-stage" aria-live="polite">
+        <div class="c-rings" id="c-rings"><i></i><i></i><i></i></div>
+        <div class="c-dial-read"><b id="c-temp">50°</b><small id="c-label">Level 2 · Soothe</small></div>
+      </div>
+      <div class="c-dial-panel">
+        <div class="c-levels" role="group" aria-label="Heat level">
+          <button class="c-level" type="button" data-temp="45" data-scale=".75" data-name="Gentle" aria-pressed="false">
+            <span class="c-level-n">1</span>
+            <span class="c-level-t"><strong>Gentle</strong><span>Mild days &amp; long wear</span></span>
+            <span class="c-level-temp">45°</span>
+          </button>
+          <button class="c-level" type="button" data-temp="50" data-scale="1" data-name="Soothe" aria-pressed="true">
+            <span class="c-level-n">2</span>
+            <span class="c-level-t"><strong>Soothe</strong><span>The everyday favourite</span></span>
+            <span class="c-level-temp">50°</span>
+          </button>
+          <button class="c-level" type="button" data-temp="55" data-scale="1.25" data-name="Deep" aria-pressed="false">
+            <span class="c-level-n">3</span>
+            <span class="c-level-t"><strong>Deep</strong><span>For the toughest hours</span></span>
+            <span class="c-level-temp">55°</span>
+          </button>
+        </div>
+        <p style="font-size:14px;color:var(--ink-soft)">Pair any level with four massage modes, from a slow pulse to a steady knead.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="c-section" style="padding-top:0">
+  <div class="c-wrap">
+    <div class="c-features c-reveal">
+      <div class="c-feature">
+        <svg viewBox="0 0 24 24"><path d="M12 3c2 3 5 5 5 9a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-8z"/></svg>
+        <h3>Fast heat</h3>
+        <p>Graphene-style heating film warms the pad in seconds, not minutes.</p>
+      </div>
+      <div class="c-feature">
+        <svg viewBox="0 0 24 24"><path d="M3 12c2-4 4-4 6 0s4 4 6 0 4-4 6 0"/></svg>
+        <h3>Gentle massage</h3>
+        <p>Four vibration modes loosen tension alongside the warmth.</p>
+      </div>
+      <div class="c-feature">
+        <svg viewBox="0 0 24 24"><rect x="3" y="7" width="16" height="10" rx="3"/><path d="M21 11v2M7 11h6"/></svg>
+        <h3>Cordless</h3>
+        <p>USB-C rechargeable. No outlet, no cable across your lap.</p>
+      </div>
+      <div class="c-feature">
+        <svg viewBox="0 0 24 24"><path d="M4 12h16M7 8l-3 4 3 4M17 8l3 4-3 4"/></svg>
+        <h3>Wear anywhere</h3>
+        <p>Slim profile and a soft stretch strap that fits under everyday clothes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="c-section c-steps-sec">
+  <div class="c-wrap">
+    <div class="c-head c-reveal">
+      <p class="c-eyebrow">Ready in a minute</p>
+      <h2>Strap on. Switch on. Carry on.</h2>
+    </div>
+    <ol class="c-steps c-reveal">
+      <li class="c-step"><h3>Wrap</h3><p>Fasten the soft strap around your waist and place the pad over the ache — front or lower back.</p></li>
+      <li class="c-step"><h3>Warm</h3><p>Hold the button to power on, then tap to choose your heat level and massage mode.</p></li>
+      <li class="c-step"><h3>Relax</h3><p>Get on with your day. The belt switches itself off on a timer and recharges by USB-C.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="c-section" id="compare">
+  <div class="c-wrap">
+    <div class="c-head c-reveal">
+      <p class="c-eyebrow">Why clayo</p>
+      <h2>Warmth that doesn't keep you on the couch.</h2>
+    </div>
+    <div class="c-table-scroll c-reveal">
+      <table class="c-compare">
+        <thead>
+          <tr><th></th><th class="is-us">clayo</th><th>Hot water bottle</th><th>Stick-on heat patch</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Warm in seconds</td><td class="is-us c-yes">✓</td><td class="c-no">—</td><td class="c-no">—</td></tr>
+          <tr><td>Adjustable heat</td><td class="is-us c-yes">3 levels</td><td class="c-no">—</td><td class="c-no">—</td></tr>
+          <tr><td>Massage modes</td><td class="is-us c-yes">4 modes</td><td class="c-no">—</td><td class="c-no">—</td></tr>
+          <tr><td>Wear on the move</td><td class="is-us c-yes">✓</td><td class="c-no">—</td><td>✓</td></tr>
+          <tr><td>Reusable</td><td class="is-us c-yes">✓</td><td>✓</td><td class="c-no">—</td></tr>
+          <tr><td>Auto shut-off</td><td class="is-us c-yes">✓</td><td class="c-no">—</td><td class="c-no">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- PLACEHOLDER REVIEWS: replace with real, verified customer reviews (or a reviews app block) before going live. -->
+<section class="c-section" id="reviews" style="background:var(--cream)">
+  <div class="c-wrap">
+    <div class="c-head c-reveal">
+      <p class="c-eyebrow">From the clayo community</p>
+      <h2>Kinder days, every month.</h2>
+    </div>
+    <div class="c-reviews c-reveal">
+      <article class="c-review">
+        <span class="c-stars" aria-label="5 out of 5 stars">★★★★★</span>
+        <blockquote>“I wore it through a whole workday under a sweater and nobody noticed. Level two is perfect.”</blockquote>
+        <footer><span>Review placeholder</span><span class="c-verified">Verified</span></footer>
+      </article>
+      <article class="c-review">
+        <span class="c-stars" aria-label="5 out of 5 stars">★★★★★</span>
+        <blockquote>“Warm almost instantly. I've stopped refilling a hot water bottle at 2am.”</blockquote>
+        <footer><span>Review placeholder</span><span class="c-verified">Verified</span></footer>
+      </article>
+      <article class="c-review">
+        <span class="c-stars" aria-label="5 out of 5 stars">★★★★★</span>
+        <blockquote>“The massage plus heat combo is the thing. Battery easily lasts my commute both ways.”</blockquote>
+        <footer><span>Review placeholder</span><span class="c-verified">Verified</span></footer>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="c-section" id="faq">
+  <div class="c-wrap c-faq-grid">
+    <div class="c-head c-reveal" style="margin:0">
+      <p class="c-eyebrow">Questions</p>
+      <h2>Good to know.</h2>
+      <p>Still curious? Reach us at <a href="mailto:hello@clayo.com">hello@clayo.com</a>.</p>
+    </div>
+    <div class="c-faq c-reveal">
+      <details open>
+        <summary>How long does the battery last?</summary>
+        <p>Around 2–3 hours per charge depending on heat level and massage mode. A full recharge over USB-C takes about 2 hours.</p>
+      </details>
+      <details>
+        <summary>Can I wear it on my lower back?</summary>
+        <p>Yes. Slide the pad around the strap to sit over your lower back — many people use it there for period-related back ache.</p>
+      </details>
+      <details>
+        <summary>Is it safe to fall asleep wearing it?</summary>
+        <p>The belt switches off automatically after a set time. We still recommend starting on a lower level and always wearing it over a thin layer of clothing.</p>
+      </details>
+      <details>
+        <summary>Can I wash it?</summary>
+        <p>The strap detaches and can be hand-washed. Wipe the heating unit with a damp cloth — don't submerge it.</p>
+      </details>
+      <details>
+        <summary>What if it's not for me?</summary>
+        <p>Try it for 60 nights. If it doesn't earn a place in your routine, send it back for a full refund.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="c-section" style="padding-top:0">
+  <div class="c-wrap">
+    <div class="c-final c-reveal">
+      <p class="c-eyebrow" style="color:#f3b89f">Your next cycle, softened</p>
+      <h2 style="margin-top:14px">Bring the <em>warmth</em> with you.</h2>
+      <p>The clayo Warmth Belt — cordless heat and gentle massage, ready in seconds.</p>
+      <form method="post" action="/cart/add">
+        <input type="hidden" name="id" value="__VARIANT_ID__">
+        <button class="c-btn" type="submit" name="add">Add to cart · __PRICE__</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="c-footer">
+  <div class="c-wrap">
+    <a class="c-logo" href="/">clayo<span style="color:var(--clay)">.</span></a>
+    <nav aria-label="Footer">
+      <a href="/policies/shipping-policy">Shipping</a>
+      <a href="/policies/refund-policy">Returns</a>
+      <a href="/pages/contact">Contact</a>
+      <a href="/policies/privacy-policy">Privacy</a>
+    </nav>
+    <p style="width:100%;font-size:12px">Heat therapy for comfort. Not a medical device. Consult a doctor for severe or unusual pain.</p>
+  </div>
+</footer>
+
+<div class="c-sticky" id="c-sticky">
+  <b>__PRICE__</b>
+  <form method="post" action="/cart/add">
+    <input type="hidden" name="id" value="__VARIANT_ID__">
+    <button class="c-btn" type="submit" name="add">Add to cart</button>
+  </form>
+</div>
+
+<script>
+(function () {
+  var root = document.getElementById('clayo');
+  if (!root) return;
+
+  // Heat level selector
+  var levels = root.querySelectorAll('.c-level');
+  var rings = root.querySelectorAll('#c-rings i');
+  var temp = root.querySelector('#c-temp');
+  var label = root.querySelector('#c-label');
+  function setLevel(btn, i) {
+    levels.forEach(function (b) { b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+    var s = parseFloat(btn.dataset.scale);
+    rings.forEach(function (r) { r.style.transform = 'scale(' + s + ')'; r.style.opacity = Math.min(1, .45 + s * .45); });
+    temp.textContent = btn.dataset.temp + '°';
+    label.textContent = 'Level ' + (i + 1) + ' · ' + btn.dataset.name;
+  }
+  levels.forEach(function (b, i) { b.addEventListener('click', function () { setLevel(b, i); }); });
+  setLevel(levels[1], 1);
+
+  // Scroll reveal
+  var els = root.querySelectorAll('.c-reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    els.forEach(function (el) { io.observe(el); });
+  } else {
+    els.forEach(function (el) { el.classList.add('is-in'); });
+  }
+
+  // Sticky mobile add-to-cart once the hero button scrolls away
+  var sticky = root.querySelector('#c-sticky');
+  var heroForm = root.querySelector('.c-form');
+  if (sticky && heroForm && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      sticky.classList.toggle('is-on', !entries[0].isIntersecting && entries[0].boundingClientRect.top < 0);
+    }).observe(heroForm);
+  }
+})();
+</script>
+</div>
