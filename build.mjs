@@ -7,7 +7,7 @@ const src = readFileSync('src/landing.html', 'utf8');
 const fonts =
   '<link rel="preconnect" href="https://fonts.googleapis.com">\n' +
   '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n' +
-  '<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">\n';
+  '<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">\n';
 
 const fill = (tokens) => src.replace(/__([A-Z_]+)__/g, (m, k) => (k in tokens ? tokens[k] : m));
 
@@ -17,6 +17,9 @@ const preview = fill({
   COMPARE_BLOCK: '<s>$79</s><span class="c-save">Save $30</span>',
   VARIANT_ID: '0',
   HERO_IMG: '../assets/clayo-hero.webp',
+  DETAIL_IMG: '../assets/clayo-hero.webp',
+  CTA_LABEL: 'Add to cart',
+  CTA_ATTR: '',
   RATING_TEXT: '4.8 / 5 average rating',
   FREE_SHIP: '$50',
 });
@@ -29,7 +32,7 @@ writeFileSync(
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>clayo — Warmth Belt</title>
-${fonts}<style>html{scroll-behavior:smooth}body{margin:0;background:#fbf8f3}</style>
+${fonts}<style>html{scroll-behavior:smooth}body{margin:0;background:#FFFFFF}</style>
 </head>
 <body>
 ${preview}
@@ -50,6 +53,11 @@ const liquid = fill({
     '{%- if section.settings.hero_image != blank -%}{{ section.settings.hero_image | image_url: width: 1400 }}' +
     '{%- elsif p.featured_image != blank -%}{{ p.featured_image | image_url: width: 1400 }}' +
     "{%- else -%}{{ 'clayo-hero.webp' | asset_url }}{%- endif -%}",
+  // The detail hotspots are positioned for this exact photo, so it always uses the bundled asset.
+  DETAIL_IMG: "{{ 'clayo-hero.webp' | asset_url }}",
+  CTA_LABEL:
+    '{%- if p.selected_or_first_available_variant.available -%}Add to cart{%- else -%}Sold out{%- endif -%}',
+  CTA_ATTR: '{% unless p.selected_or_first_available_variant.available %}disabled{% endunless %}',
   RATING_TEXT: '{{ section.settings.rating_text | escape }}',
   FREE_SHIP: '{{ section.settings.free_shipping | escape }}',
 });
