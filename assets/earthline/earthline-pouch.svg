@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="Earthline Naturals molecular hydrogen tablets pouch">
+  <rect width="600" height="600" fill="#F4F4F4"/>
+  <ellipse cx="300" cy="520" rx="150" ry="18" fill="#29413A" opacity=".12"/>
+  <path d="M188 96h224a8 8 0 0 1 8 8v372c0 24-18 40-42 40H222c-24 0-42-16-42-40V104a8 8 0 0 1 8-8z" fill="#0A5946"/>
+  <path d="M188 96h224a8 8 0 0 1 8 8v40H180v-40a8 8 0 0 1 8-8z" fill="#124D36"/>
+  <path d="M180 124h12M408 124h12" stroke="#F4F4F4" stroke-width="3"/>
+  <path d="M196 158h208" stroke="#29413A" stroke-width="3" stroke-dasharray="6 5"/>
+  <path d="M196 180h26v320h-4c-14 0-22-10-22-24z" fill="#FFFFFF" opacity=".07"/>
+  <rect x="212" y="196" width="176" height="252" rx="10" fill="#F2F3EA"/>
+  <g transform="translate(236 222)">
+    <path d="M0 22C0 8 10 0 24 0c0 14-10 24-24 22z" fill="#0A5946"/>
+    <path d="M2 20 16 6" stroke="#F2F3EA" stroke-width="2"/>
+  </g>
+  <text x="268" y="238" font-family="Plus Jakarta Sans, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" fill="#0A5946">earthline</text>
+  <text x="269" y="252" font-family="Plus Jakarta Sans, Helvetica, Arial, sans-serif" font-size="10" font-weight="500" fill="#535F5C" letter-spacing="2">naturals</text>
+  <text x="300" y="296" font-family="Plus Jakarta Sans, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#29413A" text-anchor="middle">Molecular hydrogen</text>
+  <text x="300" y="314" font-family="Plus Jakarta Sans, Helvetica, Arial, sans-serif" font-size="13" font-weight="500" fill="#535F5C" text-anchor="middle">effervescent tablets</text>
+  <text x="300" y="370" font-family="Plus Jakarta Sans, Helvetica, Arial, sans-serif" font-size="46" font-weight="700" fill="#0A5946" text-anchor="middle">12 <tspan font-size="22">PPM</tspan></text>
+  <rect x="250" y="388" width="100" height="22" rx="4" fill="#D6E9FF"/>
+  <text x="300" y="403" font-family="Plus Jakarta Sans, Helvetica, Arial, sans-serif" font-size="11" font-weight="600" fill="#29413A" text-anchor="middle">Unflavored</text>
+  <text x="300" y="432" font-family="Plus Jakarta Sans, Helvetica, Arial, sans-serif" font-size="10" fill="#535F5C" text-anchor="middle">Zero sugar · Zero calories · 30 tablets</text>
+  <circle cx="232" cy="478" r="4" fill="#F2F3EA" opacity=".5"/><circle cx="248" cy="470" r="2.5" fill="#F2F3EA" opacity=".5"/><circle cx="366" cy="474" r="3" fill="#F2F3EA" opacity=".5"/>
+</svg>

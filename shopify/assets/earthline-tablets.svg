@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="Close-up of Earthline effervescent hydrogen tablets">
+  <rect width="600" height="600" fill="#FDE9D9"/>
+  <g stroke="#B2B5BA" stroke-width="2">
+    <g transform="translate(220 250)"><ellipse cx="0" cy="10" rx="80" ry="80" fill="#E9E9E9"/><circle r="80" fill="#F4F4F4"/><path d="M-60 0h120" stroke-width="3"/></g>
+    <g transform="translate(390 220)"><ellipse cx="0" cy="8" rx="62" ry="62" fill="#E9E9E9"/><circle r="62" fill="#F4F4F4"/><path d="M-46 0h92" stroke-width="3"/></g>
+    <g transform="translate(360 390)"><ellipse cx="0" cy="9" rx="72" ry="72" fill="#E9E9E9"/><circle r="72" fill="#F4F4F4"/><path d="M-54 0h108" stroke-width="3"/></g>
+    <g transform="translate(190 420)"><ellipse cx="0" cy="7" rx="52" ry="52" fill="#E9E9E9"/><circle r="52" fill="#F4F4F4"/><path d="M-38 0h76" stroke-width="3"/></g>
+  </g>
+  <g fill="#FFFFFF" opacity=".8"><circle cx="196" cy="222" r="4"/><circle cx="244" cy="272" r="3"/><circle cx="380" cy="200" r="3"/><circle cx="340" cy="372" r="4"/></g>
+  <text x="300" y="560" font-family="Plus Jakarta Sans, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#29413A" text-anchor="middle">12 PPM per tablet</text>
+</svg>
