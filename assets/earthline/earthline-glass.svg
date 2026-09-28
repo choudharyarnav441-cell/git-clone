@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="A hydrogen tablet fizzing in a glass of water">
+  <rect width="600" height="600" fill="#D6E9FF"/>
+  <ellipse cx="300" cy="512" rx="120" ry="14" fill="#29413A" opacity=".12"/>
+  <path d="M208 206h184l-18 280a24 24 0 0 1-24 22H250a24 24 0 0 1-24-22z" fill="#FFFFFF" opacity=".6"/>
+  <path d="M196 120h208l-24 366a26 26 0 0 1-26 24H246a26 26 0 0 1-26-24z" fill="none" stroke="#29413A" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M208 206h184" stroke="#29413A" stroke-width="2" opacity=".35"/>
+  <ellipse cx="300" cy="484" rx="34" ry="9" fill="#F4F4F4" stroke="#B2B5BA" stroke-width="2"/>
+  <g fill="none" stroke="#FFFFFF" stroke-width="2.5">
+    <circle cx="286" cy="452" r="6"/><circle cx="312" cy="430" r="8"/><circle cx="298" cy="398" r="5"/><circle cx="276" cy="370" r="7"/><circle cx="322" cy="352" r="4"/><circle cx="306" cy="318" r="6"/><circle cx="268" cy="296" r="4"/><circle cx="334" cy="276" r="5"/><circle cx="292" cy="250" r="7"/><circle cx="318" cy="228" r="3"/><circle cx="256" cy="232" r="3"/><circle cx="352" cy="410" r="4"/><circle cx="252" cy="420" r="3"/>
+  </g>
+  <text x="300" y="566" font-family="Plus Jakarta Sans, Helvetica, Arial, sans-serif" font-size="18" font-weight="600" fill="#29413A" text-anchor="middle">Drop · fizz · drink</text>
+</svg>
